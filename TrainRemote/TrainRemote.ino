@@ -6,7 +6,7 @@
  * * @details This file sends wireless packets to the controller that handles
  * the train. The remote has support for autopilot, headlights and manual speed.
  * * HARDWARECONNECTIONS:
- * - Pin 1:  Transmit Wireless (Digital, TX)
+ * - Pin 12: Transmit Wireless (Digital, TX)
  * - Pin 7:  Headlights        (Digital)
  * - Pin 8:  Autopilot         (Digital)
  * - Pin A0: Motor speed       (Analog, PWM)
