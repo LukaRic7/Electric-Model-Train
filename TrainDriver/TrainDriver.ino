@@ -51,9 +51,6 @@ const uint8_t MOTOR_FORWARD  = 8;
 const uint8_t MOTOR_BACKWARD = 7;
 const uint8_t MOTOR_SPEED    = 6;
 
-// ---------- Transmitter ---------- //
-const uint8_t TRANSMIT_RECIEVE = 0;
-
 // ---------- Headlights ----------- //
 const uint8_t HEADLIGHT_PIN = 13;
 
@@ -126,9 +123,6 @@ void setup() {
 
   // Set headlights pin mode
   pinMode(HEADLIGHT_PIN, OUTPUT);
-
-  // Set transmitter recieve pin
-  pinMode(TRANSMIT_RECIEVE, INPUT);
 
   // Set the sensor pins
   pinMode(SENSOR_TRIGGER, OUTPUT);
