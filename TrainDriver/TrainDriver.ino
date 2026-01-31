@@ -9,6 +9,7 @@
  * * HARDWARECONNECTIONS:
  * - Pin 8:  Motor Forward    (Digital)
  * - Pin 7:  Motor Backward   (Digital)
+ * - Pin 11: Transmitter      (Digital)
  * - Pin 6   Motor Speed      (Digital, PWM)
  * - Pin 13: Headlights       (Digital)
  * - Pin 9:  Sensor Trigger   (Digital, PWM)
