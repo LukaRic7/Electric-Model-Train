@@ -144,19 +144,19 @@ void loop() {
   updateStateMachine();
   applyOutputs();
 
-  // !!! DEBUG !!! ----- OUTPUT LOG ----- !!! DEBUG !!! //
-  Serial.println("Target Speed: " + String(target_speed)
+  // Debug log
+  Serial.println(
+      "Target Speed: "   + String(target_speed)
     + " | Train Speed: " + String(train_speed)
-    + " | Driving: " + (train_speed == 0 ? "Stopped" :
-      (train_speed > 127 ? "Forwards" : "Backwards"))
-    + " | Autopilot: " + (autopilot_mode ? "ON" : "OFF")
-    + " | Headlights: " + (headlights_on ? "ON" : "OFF")
-    + " | Emergency: " + (in_emergency_stop ? "ON" : "OFF")
-    + " | Station: " + (last_station_sensor ? "ON" : "OFF") + String(millis() - station_dwell_timer)
-    + " | State: " + String(train_state));
-    // !!! DEBUG !!! -- ^^ -- ^^ -- ^^ -- !!! DEBUG !!! //
-  /*
-  */
+    + " | Driving: "     + (train_speed == 0 ? "Stopped"
+      : (train_speed > 127 ? "Forwards" : "Backwards"))
+    + " | Autopilot: "   + (autopilot_mode ? "ON" : "OFF")
+    + " | Headlights: "  + (headlights_on ? "ON" : "OFF")
+    + " | Emergency: "   + (in_emergency_stop ? "ON" : "OFF")
+    + " | Station: "     + (last_station_sensor ? "ON" : "OFF")
+    + " | Dwell: "       + String(millis() - station_dwell_timer)
+    + " | State: "       + String(train_state)
+  );
 }
 
 // ========================================================================== //

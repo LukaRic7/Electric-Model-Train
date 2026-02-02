@@ -84,6 +84,13 @@ void setup() {
 void loop() {
   readAndSendInputs();
   setIndicatorLEDs(last_manual_speed);
+
+  // Debug log
+  Serial.println(
+    "Manual Speed: "       + String(last_manual_speed)
+    + " | Headlight State: " + String(last_headlight_state)
+    + " | Autopilot State: " + String(last_autopilot_state)
+  );
 }
 
 // ========================================================================== //
