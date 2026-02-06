@@ -15,6 +15,7 @@
  * - Pin 9:  Sensor Trigger   (Digital, PWM)
  * - Pin 10: Sensor Echo      (Digital, PWM)
  * - Pin 4:  Station Sensor   (Digital)
+ * - Pin 3:  Autopilot indi   (Digital)
  */
 
 // Include libraries to receive data
@@ -29,8 +30,8 @@ RH_ASK rf_driver;
 // ========================================================================== //
 
 // -------- Speeds (0-255) --------- //
-const uint8_t SPEED_CRUISE = 255;   // Full forwards
-const uint8_t SPEED_SLOW   = 159;   // 25% power forwards
+const uint8_t SPEED_CRUISE = 30;   // Full forwards
+const uint8_t SPEED_SLOW   = 100;   // 25% power forwards
 const uint8_t ACCEL_RATE   = 40;    // +40 pr second
 const uint8_t DECEL_RATE   = 60;    // -60 pr second
 const uint8_t DECEL_RATE_E = 120;   // -120 pr second when emergency stopped
@@ -51,6 +52,9 @@ const uint8_t EMERGENCY_MARGIN_RETURN = 30;   // 60cm away, cancel emergency
 const uint8_t MOTOR_FORWARD  = 8;
 const uint8_t MOTOR_BACKWARD = 7;
 const uint8_t MOTOR_SPEED    = 6;
+
+// ---------- Indicators ----------- //
+const uint8_t AUTOPILOT_INDI = 3;
 
 // ---------- Headlights ----------- //
 const uint8_t HEADLIGHT_PIN = 13;
@@ -116,6 +120,9 @@ void setup() {
 
   // Initialize ASK driver
   rf_driver.init();
+
+  // Set indicator pin
+  pinMode(AUTOPILOT_INDI, OUTPUT);
 
   // Set motor pin modes
   pinMode(MOTOR_FORWARD, OUTPUT);
@@ -214,7 +221,6 @@ void readInputs() {
       manual_speed   = pkt.speed;
       autopilot_mode = pkt.autopilot;
       headlights_on  = pkt.headlights;
-      Serial.println(headlights_on);
     }
   }
 }
@@ -223,6 +229,8 @@ void readInputs() {
  * @brief State machine for the train, uses switch control flow state.
  */
 void updateStateMachine() {
+  //in_emergency_stop = false; // DISABLE EMERGENCY STOP
+
   switch (train_state) {
     // Train is emergency stopped
     case EMERGENCY_STOPPED:
@@ -281,6 +289,9 @@ void updateStateMachine() {
 void applyOutputs() {
   // Set headlight state
   digitalWrite(HEADLIGHT_PIN, headlights_on ? HIGH : LOW);
+
+  // Set indicators
+  digitalWrite(AUTOPILOT_INDI, autopilot_mode ? HIGH : LOW);
 
   switch (train_state) {
     // Train needs to be stopped
